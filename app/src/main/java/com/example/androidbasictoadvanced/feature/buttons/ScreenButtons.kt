@@ -23,12 +23,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
@@ -55,7 +57,7 @@ fun ScreenButtons(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
@@ -64,10 +66,10 @@ fun ScreenButtons(
                     }
                 },
 
-                colors = topAppBarColors(
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
+                ),
 
             )
         }
@@ -286,7 +288,7 @@ fun TextButton() {
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenButtonsPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenButtons {}

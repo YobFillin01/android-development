@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
@@ -106,8 +107,8 @@ fun ScreenMenu(
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
                 ),
 
                 navigationIcon = {
@@ -119,7 +120,6 @@ fun ScreenMenu(
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 },
@@ -135,7 +135,7 @@ fun ScreenMenu(
                         Icon(
                             painter = painterResource(R.drawable.ic_more_vert),
                             contentDescription = "More vert",
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = Color(0xFF34195D)
                         )
                     }
 
@@ -207,7 +207,7 @@ fun ScreenMenu(
 }
 
 @Composable
-@Preview
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenMenuPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenMenu {}

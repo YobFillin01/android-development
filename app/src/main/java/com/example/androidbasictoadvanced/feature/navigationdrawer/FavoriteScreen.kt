@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -271,7 +272,7 @@ fun FavoriteScreen() {
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun FavoriteScreenPreview() {
     AndroidBasicToAdvancedTheme() {
         FavoriteScreen()

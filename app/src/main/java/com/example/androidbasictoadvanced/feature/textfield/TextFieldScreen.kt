@@ -52,8 +52,8 @@ fun TextFieldScreen(
             TopAppBar(
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Indigo40,
-                    titleContentColor = Color.White
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
                 ),
 
                 title = {

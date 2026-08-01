@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
@@ -51,7 +52,7 @@ fun ScreenTimePicker(
         initialMinute = calender.get(Calendar.MINUTE)
     )
 
-    var isShowedTimePicker by remember { mutableStateOf(true) }
+    var isShowedTimePicker by remember { mutableStateOf(false) }
 
     Scaffold(
 
@@ -64,8 +65,8 @@ fun ScreenTimePicker(
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
                 ),
 
                 navigationIcon = {
@@ -184,7 +185,7 @@ fun ScreenTimePicker(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenTimePickerPreview() {
     AndroidBasicToAdvancedTheme {
         ScreenTimePicker {}

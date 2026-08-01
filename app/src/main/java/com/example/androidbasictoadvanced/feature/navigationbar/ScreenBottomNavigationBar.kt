@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
@@ -201,7 +202,7 @@ data class NavigationItem(
 )
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenBottomNavigationBarPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenBottomNavigationBar {}

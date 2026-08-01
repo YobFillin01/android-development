@@ -14,6 +14,7 @@ import com.example.androidbasictoadvanced.feature.navigationbar.ScreenBottomNavi
 import com.example.androidbasictoadvanced.feature.navigationdrawer.ScreenNavigationDrawer
 import com.example.androidbasictoadvanced.feature.progressindicator.ScreenProgressIndicator
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
+import com.example.androidbasictoadvanced.navigation.BaseNavigation
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenABABank
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenCoffeeShop
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenGrocery
@@ -28,6 +29,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidBasicToAdvancedTheme {
+
+                BaseNavigation()
+
                 //ScreenButtons()
                 //ScreenSegmentButtonWithSingleChoice()
 
@@ -46,7 +50,7 @@ class MainActivity : ComponentActivity() {
 //                ScreenOrderFood2()
 //                ScreenMenu()
 //                ScreenBottomNavigationBar {  }
-                ScreenNavigationDrawer {  }
+//                ScreenNavigationDrawer {  }
             }
         }
     }

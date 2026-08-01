@@ -35,7 +35,7 @@ import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun TooltipScreen(onBack:() -> Unit) {
+fun ScreenTooltip(onBack:() -> Unit) {
 
     val tooltipState = rememberTooltipState(
         initialIsVisible = false
@@ -126,8 +126,8 @@ fun TooltipScreen(onBack:() -> Unit) {
 
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
-fun TooltipScreenPreview() {
+fun ScreenTooltipPreview() {
     AndroidBasicToAdvancedTheme() {
-        TooltipScreen {  }
+        ScreenTooltip {  }
     }
 }

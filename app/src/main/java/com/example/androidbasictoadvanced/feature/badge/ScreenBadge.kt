@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,24 +50,21 @@ fun ScreenBadge(
                         Text(
                             text = "Headline",
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
                         )
                         Text(
                             text = "Subtitle",
                             fontSize = 16.sp,
-                            color = Color.White
                         )
                     }
                 },
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_profile),
-                            contentDescription = "Profile",
-                            tint = Color.White
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = "Back",
                         )
                     }
                 },
@@ -78,7 +76,6 @@ fun ScreenBadge(
                         Icon(
                             painter = painterResource(R.drawable.ic_search),
                             contentDescription = "Search",
-                            tint = Color.White
                         )
                     }
 
@@ -88,18 +85,21 @@ fun ScreenBadge(
                         Icon(
                             painter = painterResource(R.drawable.ic_add),
                             contentDescription = "Add",
-                            tint = Color.White
                         )
                     }
                 },
 
-                colors = TopAppBarDefaults.topAppBarColors(Color.Black)
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
+                )
             )
         },
 
         bottomBar = {
             BottomAppBar(
-                containerColor = Color.Black
+                containerColor = Color(0xFFA47EDD),
+                contentColor = Color(0xFF34195D)
             ) {
 
                 Row(
@@ -130,7 +130,6 @@ fun ScreenBadge(
                                     Icon(
                                         painter = painterResource(R.drawable.ic_chat),
                                         contentDescription = "Chat",
-                                        tint = Color.White,
                                         modifier = Modifier.size(32.dp)
                                     )
                                 }
@@ -139,7 +138,6 @@ fun ScreenBadge(
 
                         Text(
                             text = "Chats",
-                            color = Color.White,
                             fontSize = 12.sp
                         )
 
@@ -162,7 +160,6 @@ fun ScreenBadge(
                                 Icon(
                                     painter = painterResource(R.drawable.ic_web_stories),
                                     contentDescription = "Story",
-                                    tint = Color.White,
                                     modifier = Modifier.size(32.dp)
                                 )
                             }
@@ -170,7 +167,6 @@ fun ScreenBadge(
 
                         Text(
                             text = "Stories",
-                            color = Color.White,
                             fontSize = 12.sp
                         )
                     }
@@ -193,7 +189,6 @@ fun ScreenBadge(
                                 Icon(
                                     painter = painterResource(R.drawable.ic_notification),
                                     contentDescription = "notification",
-                                    tint = Color.White,
                                     modifier = Modifier.size(32.dp)
                                 )
                             }
@@ -201,7 +196,6 @@ fun ScreenBadge(
 
                         Text(
                             text = "Notifications",
-                            color = Color.White,
                             fontSize = 12.sp
                         )
                     }
@@ -222,14 +216,12 @@ fun ScreenBadge(
                                 Icon(
                                     painter = painterResource(R.drawable.ic_menu),
                                     contentDescription = "Menu",
-                                    tint = Color.White,
                                     modifier = Modifier.size(32.dp)
                                 )
                             }
                         }
                         Text(
                             text = "Menu",
-                            color = Color.White,
                             fontSize = 12.sp
                         )
                     }
@@ -250,7 +242,7 @@ fun ScreenBadge(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenBadgePreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenBadge {}

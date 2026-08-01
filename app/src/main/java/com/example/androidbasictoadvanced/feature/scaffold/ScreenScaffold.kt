@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
@@ -41,11 +42,11 @@ fun ScreenRow(
                 title = {
                     Text(
                         text = "Hello Fillin!",
-                        color = Color.White,
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.DarkGray
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
                 ),
 
                 navigationIcon = {
@@ -55,9 +56,6 @@ fun ScreenRow(
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "arrow back",
-                            tint = Color.White,
-                            modifier = Modifier
-                                .fillMaxSize()
                         )
                     }
                 }
@@ -66,7 +64,8 @@ fun ScreenRow(
 
         bottomBar = {
             BottomAppBar(
-                containerColor = Color.DarkGray
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
             ) {
 //                Text(
 //                    text = "This is a bottom bar",
@@ -85,7 +84,6 @@ fun ScreenRow(
                         Icon(
                             painter = painterResource(R.drawable.ic_home1),
                             contentDescription = "Home",
-                            tint = Color.White,
                         )
                     }
 
@@ -95,7 +93,6 @@ fun ScreenRow(
                         Icon(
                             painter = painterResource(R.drawable.ic_menu),
                             contentDescription = "Menu",
-                            tint = Color.White,
                         )
                     }
 
@@ -105,7 +102,6 @@ fun ScreenRow(
                         Icon(
                             painter = painterResource(R.drawable.ic_favorite),
                             contentDescription = "Favorite",
-                            tint = Color.White
                         )
                     }
                 }
@@ -141,7 +137,7 @@ fun ScreenRow(
         ) {
             Text(
                 text = "Hello world",
-                color = Color.Red,
+                color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = colorResource(R.color.purple_500))
@@ -149,7 +145,7 @@ fun ScreenRow(
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Hello world",
-                color = Color.Red,
+                color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = colorResource(R.color.purple_500))
@@ -157,7 +153,7 @@ fun ScreenRow(
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Hello world",
-                color = Color.Red,
+                color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = colorResource(R.color.purple_500))
@@ -169,7 +165,7 @@ fun ScreenRow(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenRowPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenRow {}

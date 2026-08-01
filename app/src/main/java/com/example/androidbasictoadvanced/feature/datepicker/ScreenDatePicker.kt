@@ -27,8 +27,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
@@ -47,7 +49,7 @@ fun ScreenDatePickerDialog(
         initialDisplayMode = DisplayMode.Picker,
     )
 
-    var isShowedDatePicker by remember { mutableStateOf(true) }
+    var isShowedDatePicker by remember { mutableStateOf(false) }
 
 
 
@@ -73,9 +75,9 @@ fun ScreenDatePickerDialog(
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary
-                )
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
+                ),
             )
         },
 
@@ -172,7 +174,7 @@ fun ScreenDatePickerDialog(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenDatePickerDialogPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenDatePickerDialog {}

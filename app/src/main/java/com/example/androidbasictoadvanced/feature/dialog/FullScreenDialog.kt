@@ -31,9 +31,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -63,6 +65,12 @@ fun FullScreenDialog(
 
         topBar = {
             TopAppBar(
+
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
+                ),
+
                 title = {
                     Text(
                         text = "Full Screen Dialog"
@@ -76,15 +84,9 @@ fun FullScreenDialog(
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 },
-
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
             )
         },
 
@@ -189,7 +191,7 @@ fun FullScreenDialog(
 
 
 @Composable
-@Preview(showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun FullScreenDialogPreview() {
     AndroidBasicToAdvancedTheme() {
         FullScreenDialog {}

@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
@@ -50,7 +51,7 @@ fun TrendingMovies () {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Back",
-                            tint = Color (0xFFD6D6D6)
+                            tint = Color(0xFF34195D)
                         )
                     }
                 },
@@ -60,9 +61,9 @@ fun TrendingMovies () {
                         onClick = {}
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_menu),
-                            contentDescription = "Back",
-                            tint = Color (0xFFD6D6D6)
+                            painter = painterResource(R.drawable.ic_more_vert),
+                            contentDescription = "more vert",
+                            tint = Color(0xFF34195D)
                         )
                     }
                 },
@@ -74,16 +75,17 @@ fun TrendingMovies () {
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF6792C2),
-                    titleContentColor = Color(0xFFD6D6D6)
-                )
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
+                ),
 
             )
         },
 
         bottomBar = {
             BottomAppBar(
-                containerColor = Color (0xFF111111)
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
             ) {
                 Row (
                     modifier = Modifier
@@ -97,7 +99,6 @@ fun TrendingMovies () {
                         Icon(
                             painter = painterResource(R.drawable.ic_menu),
                             contentDescription = "Menu",
-                            tint = Color (0xFFD6D6D6)
                         )
                     }
 
@@ -106,8 +107,7 @@ fun TrendingMovies () {
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_add),
-                            contentDescription = "Menu",
-                            tint = Color (0xFFD6D6D6)
+                            contentDescription = "Add",
                         )
                     }
 
@@ -116,8 +116,7 @@ fun TrendingMovies () {
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_home1),
-                            contentDescription = "Menu",
-                            tint = Color (0xFFD6D6D6)
+                            contentDescription = "Home",
                         )
                     }
 
@@ -130,7 +129,13 @@ fun TrendingMovies () {
         LazyRow(
             modifier = Modifier
                 .padding(innerPadding)
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
+
+            items(100) {
+                Text(text = "Row $it")
+            }
 
         }
 
@@ -139,7 +144,7 @@ fun TrendingMovies () {
 }
 
 @Composable
-@Preview (showBackground = true)
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun TrendingMoviesPreview () {
     AndroidBasicToAdvancedTheme() {
         TrendingMovies ()
