@@ -3,13 +3,39 @@ package com.example.androidbasictoadvanced.navigation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Announcement
+import androidx.compose.material.icons.automirrored.filled.MenuOpen
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.Badge
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.ChatBubble
+import androidx.compose.material.icons.filled.CheckBox
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Layers
+import androidx.compose.material.icons.filled.LinearScale
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.RadioButtonChecked
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SmartButton
+import androidx.compose.material.icons.filled.Tab
+import androidx.compose.material.icons.filled.ToggleOn
+import androidx.compose.material.icons.filled.VerticalAlignBottom
+import androidx.compose.material.icons.filled.ViewCarousel
+import androidx.compose.material.icons.filled.ViewWeek
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -18,6 +44,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -26,9 +53,43 @@ import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 
+data class ComponentItem(
+    val title: String,
+    val screen: Screen,
+    val icon: ImageVector
+)
+
+val components = listOf(
+    ComponentItem("Badge", Screen.Badge, Icons.Default.Badge),
+    ComponentItem("Buttons", Screen.Buttons, Icons.Default.SmartButton),
+    ComponentItem("Bottom Sheet", Screen.BottomSheet, Icons.Default.VerticalAlignBottom),
+    ComponentItem("Cards", Screen.Cards, Icons.Default.CreditCard),
+    ComponentItem("Carousel", Screen.Carousel, Icons.Default.ViewCarousel),
+    ComponentItem("CheckBox", Screen.CheckBox, Icons.Default.CheckBox),
+    ComponentItem("Date Picker", Screen.DatePicker, Icons.Default.DateRange),
+    ComponentItem("Date Picker with range", Screen.DatePickerWithRange, Icons.Default.CalendarMonth),
+    ComponentItem("Dialog", Screen.Dialog, Icons.Default.ChatBubble),
+    ComponentItem("Lazy Row", Screen.LazyRow, Icons.Default.ViewWeek),
+    ComponentItem("Menu", Screen.Menu, Icons.Default.Menu),
+    ComponentItem("Navigation Bar", Screen.NavigationBar, Icons.Default.CalendarToday),
+    ComponentItem("Navigation Drawer", Screen.NavigationDrawer, Icons.AutoMirrored.Filled.MenuOpen),
+    ComponentItem("Progress Indicator", Screen.ProgressIndicator, Icons.Default.Refresh),
+    ComponentItem("Radio", Screen.Radio, Icons.Default.RadioButtonChecked),
+    ComponentItem("Scaffold", Screen.Scaffold, Icons.Default.Layers),
+    ComponentItem("Slider", Screen.Slider, Icons.Default.LinearScale),
+    ComponentItem("Snackbar", Screen.Snackbar, Icons.AutoMirrored.Filled.Announcement),
+    ComponentItem("Spacer", Screen.Spacer, Icons.Default.Height),
+    ComponentItem("Switch", Screen.Switch, Icons.Default.ToggleOn),
+    ComponentItem("Tab", Screen.Tab, Icons.Default.Tab),
+    ComponentItem("TextField", Screen.TextField, Icons.Default.Edit),
+    ComponentItem("Time Picker", Screen.TimePicker, Icons.Default.AccessTime),
+    ComponentItem("Toolbar", Screen.Toolbar, Icons.Default.Build),
+    ComponentItem("Tooltip", Screen.Tooltip, Icons.Default.Info)
+)
+
 @Composable
 fun ScreenHome(
-    onClickComponent: (Any) -> Unit
+    onClickComponent: (Screen) -> Unit
 ) {
     Scaffold(
 
@@ -53,7 +114,9 @@ fun ScreenHome(
                             .clip(CircleShape),
                         contentScale = ContentScale.Crop
                     )
-                }
+                },
+
+                
             )
         }
 
@@ -61,18 +124,27 @@ fun ScreenHome(
         LazyColumn(
             modifier = Modifier.padding(paddingValues).fillMaxSize()
         ) {
-            items (50){
-                Text(
+            items(components.size) { index ->
+
+                val component = components[index]
+
+                ListItem(
+                    leadingContent = {
+                        Icon(
+                            imageVector = component.icon,
+                            contentDescription = null,
+                            tint = Color(0xFFA47EDD)
+                        )
+                    },
                     modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .clickable(
-                            onClick = {
-                                onClickComponent(100)
-                            }
-                        ),
-                    text = "Item $it"
-                )
+                        .clickable {
+                            onClickComponent(component.screen)
+                        }
+                ) {
+                    Text(text = component.title)
+                }
+
+                HorizontalDivider()
             }
         }
     }
@@ -81,7 +153,7 @@ fun ScreenHome(
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
 fun ScreenHomePreview() {
-    AndroidBasicToAdvancedTheme() {
+    AndroidBasicToAdvancedTheme {
         ScreenHome (
             onClickComponent = {}
         )

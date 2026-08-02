@@ -70,7 +70,7 @@ fun ScreenDialog(
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),

@@ -31,7 +31,7 @@ import com.example.androidbasictoadvanced.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenRow(
+fun ScreenScaffold(
     onBack: () -> Unit
 ) {
 
@@ -51,7 +51,7 @@ fun ScreenRow(
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
@@ -166,8 +166,8 @@ fun ScreenRow(
 
 @Composable
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
-fun ScreenRowPreview() {
+fun ScreenScaffoldPreview() {
     AndroidBasicToAdvancedTheme() {
-        ScreenRow {}
+        ScreenScaffold {}
     }
 }

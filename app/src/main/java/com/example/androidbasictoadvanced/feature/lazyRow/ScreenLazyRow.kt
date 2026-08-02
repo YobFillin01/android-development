@@ -32,7 +32,9 @@ data class MovieItem (
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrendingMovies () {
+fun ScreenLazyRow (
+    onBack: () -> Unit
+) {
 
     val movieList = listOf(
         MovieItem ("The Nun", R.drawable.the_nun)
@@ -46,7 +48,7 @@ fun TrendingMovies () {
                 navigationIcon = {
 
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
@@ -145,8 +147,8 @@ fun TrendingMovies () {
 
 @Composable
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
-fun TrendingMoviesPreview () {
+fun ScreenLazyRowPreview () {
     AndroidBasicToAdvancedTheme() {
-        TrendingMovies ()
+        ScreenLazyRow {}
     }
 }

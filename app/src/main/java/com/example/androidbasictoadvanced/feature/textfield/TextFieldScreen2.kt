@@ -36,7 +36,7 @@ import com.example.androidbasictoadvanced.ui.theme.Indigo40
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldScreen2( onBack: () -> Unit ) {
+fun ScreenTextField2( onBack: () -> Unit ) {
 
     var password by remember { mutableStateOf("") }
     var isPasswordTransform by remember { mutableStateOf(false) }
@@ -65,12 +65,11 @@ fun TextFieldScreen2( onBack: () -> Unit ) {
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Back",
-                            tint = Color.White
                         )
                     }
                 },
@@ -147,8 +146,8 @@ fun TextFieldScreen2( onBack: () -> Unit ) {
 
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
-fun TextFieldScreen2Preview() {
+fun ScreenTextField2Preview() {
     AndroidBasicToAdvancedTheme() {
-        TextFieldScreen2 {  }
+        ScreenTextField2 {  }
     }
 }

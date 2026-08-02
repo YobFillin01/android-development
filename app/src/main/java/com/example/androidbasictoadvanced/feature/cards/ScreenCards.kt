@@ -14,7 +14,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -58,7 +57,7 @@ fun ScreenCards(
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back1),
@@ -285,7 +284,7 @@ fun OutlineCardExample() {
 
 @Composable
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
-fun ScreenFilledCardPreview() {
+fun ScreenCardsPreview() {
     AndroidBasicToAdvancedTheme() {
         ScreenCards {}
     }

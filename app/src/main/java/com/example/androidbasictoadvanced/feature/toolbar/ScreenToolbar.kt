@@ -43,7 +43,7 @@ import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToolbarScreen(onBack: () -> Unit) {
+fun ScreenToolbar(onBack: () -> Unit) {
 
     val scrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
     val scrollBehaviorTop = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -82,7 +82,7 @@ fun ToolbarScreen(onBack: () -> Unit) {
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
@@ -169,8 +169,8 @@ fun ToolbarScreen(onBack: () -> Unit) {
 //@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
 @Preview(showBackground = true)
-fun ToolbarScreenPreview() {
+fun ScreenToolbarPreview() {
     AndroidBasicToAdvancedTheme() {
-        ToolbarScreen {  }
+        ScreenToolbar {  }
     }
 }

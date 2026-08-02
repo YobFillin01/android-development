@@ -56,18 +56,17 @@ fun ScreenSwitchComponent(
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = Color(0xFFA47EDD),
+                    titleContentColor = Color(0xFF34195D)
                 ),
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }

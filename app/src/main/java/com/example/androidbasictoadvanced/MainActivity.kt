@@ -32,26 +32,13 @@ class MainActivity : ComponentActivity() {
 
                 BaseNavigation()
 
-                //ScreenButtons()
-                //ScreenSegmentButtonWithSingleChoice()
 
-//                HomeScreen Bank
-//                ScreenABABank()
-//                ScreenKBPRASACBank()
-//                ScreenWingBank()
-//                ScreenDatePickerDialog()
-//                ScreenDatePickerWithRange()
-//                ScreenTimePicker()
-//                ScreenGrocery()
-//                ScreenDialog()
-//                ScreenProgressIndicator()
-//                ScreenCoffeeShop()
-//                FullScreenDialog()
-//                ScreenOrderFood2()
-//                ScreenMenu()
-//                ScreenBottomNavigationBar {  }
-//                ScreenNavigationDrawer {  }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println("=====> onStart")
     }
 }
