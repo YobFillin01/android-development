@@ -15,6 +15,7 @@ import com.example.androidbasictoadvanced.feature.datepicker.ScreenDatePickerDia
 import com.example.androidbasictoadvanced.feature.datepicker.ScreenDatePickerWithRange
 import com.example.androidbasictoadvanced.feature.dialog.ScreenDialog
 import com.example.androidbasictoadvanced.feature.lazyRow.ScreenLazyRow
+import com.example.androidbasictoadvanced.feature.lazycolumn.ScreenLazyColumn
 import com.example.androidbasictoadvanced.feature.menu.ScreenMenu
 import com.example.androidbasictoadvanced.feature.navigationbar.ScreenBottomNavigationBar
 import com.example.androidbasictoadvanced.feature.navigationdrawer.ScreenNavigationDrawer
@@ -30,6 +31,7 @@ import com.example.androidbasictoadvanced.feature.tab.ScreenTab2
 import com.example.androidbasictoadvanced.feature.textfield.ScreenTextField2
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar
+import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
 
 sealed interface Screen {
@@ -44,6 +46,7 @@ sealed interface Screen {
     data object DatePickerWithRange : Screen
     data object Dialog : Screen
     data object LazyRow : Screen
+    data object LazyColumn : Screen
     data object Menu : Screen
     data object NavigationBar : Screen
     data object NavigationDrawer : Screen
@@ -173,6 +176,14 @@ fun BaseNavigation() {
                     )
                 }
 
+                Screen.LazyColumn -> NavEntry(key) {
+                    ScreenLazyColumn (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
                 Screen.Menu -> NavEntry(key) {
                     ScreenMenu (
                         onBack = {
@@ -270,7 +281,7 @@ fun BaseNavigation() {
                 }
 
                 Screen.Toolbar -> NavEntry(key) {
-                    ScreenToolbar (
+                    ScreenToolbar6 (
                         onBack = {
                             backStack.removeLastOrNull()
                         }

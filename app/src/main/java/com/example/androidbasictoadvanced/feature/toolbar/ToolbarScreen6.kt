@@ -60,7 +60,7 @@ import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToolbarScreen6(onBack: () -> Unit) {
+fun ScreenToolbar6(onBack: () -> Unit) {
 
     val scrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
     val scrollBehaviorTop = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -91,7 +91,7 @@ fun ToolbarScreen6(onBack: () -> Unit) {
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
@@ -221,8 +221,8 @@ fun FloatingToolbar() {
 
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
-fun ToolbarScreen6Preview() {
+fun ScreenToolbar6Preview() {
     AndroidBasicToAdvancedTheme {
-        ToolbarScreen6 {  }
+        ScreenToolbar6 {  }
     }
 }

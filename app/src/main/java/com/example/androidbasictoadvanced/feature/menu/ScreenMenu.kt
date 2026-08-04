@@ -125,9 +125,7 @@ fun ScreenMenu(
                 actions = {
                     IconButton(
                         onClick = {
-
                             expand = true
-
                         }
                     ) {
                         Icon(

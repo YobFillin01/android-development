@@ -8,39 +8,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Announcement
-import androidx.compose.material.icons.automirrored.filled.MenuOpen
+import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.Badge
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.ChatBubble
-import androidx.compose.material.icons.filled.CheckBox
-import androidx.compose.material.icons.filled.CreditCard
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Height
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Layers
-import androidx.compose.material.icons.filled.LinearScale
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.RadioButtonChecked
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.SmartButton
-import androidx.compose.material.icons.filled.Tab
-import androidx.compose.material.icons.filled.ToggleOn
-import androidx.compose.material.icons.filled.VerticalAlignBottom
-import androidx.compose.material.icons.filled.ViewCarousel
-import androidx.compose.material.icons.filled.ViewWeek
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -50,6 +33,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 
@@ -70,6 +56,7 @@ val components = listOf(
     ComponentItem("Date Picker with range", Screen.DatePickerWithRange, Icons.Default.CalendarMonth),
     ComponentItem("Dialog", Screen.Dialog, Icons.Default.ChatBubble),
     ComponentItem("Lazy Row", Screen.LazyRow, Icons.Default.ViewWeek),
+    ComponentItem("Lazy Column", Screen.LazyColumn, Icons.Default.ViewColumn),
     ComponentItem("Menu", Screen.Menu, Icons.Default.Menu),
     ComponentItem("Navigation Bar", Screen.NavigationBar, Icons.Default.CalendarToday),
     ComponentItem("Navigation Drawer", Screen.NavigationDrawer, Icons.AutoMirrored.Filled.MenuOpen),
@@ -91,10 +78,74 @@ val components = listOf(
 fun ScreenHome(
     onClickComponent: (Screen) -> Unit
 ) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+
+    // Test Compose Life cycle
+
+    /**
+     * Fetch data from a server
+     * Read from a database
+     * Delay for 3 seconds
+     * Show a Snackbar
+     * Navigate to another screen
+     * Print logs
+     */
+    LaunchedEffect(Unit) {
+        println("=====> LaunchedEffect")
+    }
+
+    DisposableEffect(key1 = lifecycleOwner) {
+
+        val observer = LifecycleEventObserver { _, event ->
+
+            when (event) {
+
+                Lifecycle.Event.ON_CREATE -> {
+                    println("=====> ON_CREATE")
+                }
+
+                Lifecycle.Event.ON_START -> {
+                    println("=====> ON_START")
+                }
+
+                Lifecycle.Event.ON_RESUME -> {
+                    println("=====> ON_RESUME")
+                }
+
+                Lifecycle.Event.ON_PAUSE -> {
+                    println("=====> ON_PAUSE")
+                }
+
+                Lifecycle.Event.ON_STOP -> {
+                    println("=====> ON_STOP")
+                }
+
+                Lifecycle.Event.ON_DESTROY -> {
+                    println("=====> ON_DESTROY")
+                }
+
+                else -> {
+                    // No action needed
+                }
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+            println("=====> Observer Removed")
+        }
+    }
+
+
     Scaffold(
 
         topBar = {
             TopAppBar(
+
                 title = {
                     Text(
                         text = "Master Android",
@@ -116,13 +167,33 @@ fun ScreenHome(
                     )
                 },
 
-                
+                actions = {
+                    BadgedBox(
+                        badge = {
+                            Badge(
+                                modifier = Modifier.size(8.dp)
+                            )
+                        }
+                    ) {
+                        IconButton(
+                            onClick = { }
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_notification),
+                                contentDescription = "Notifications",
+                                modifier = Modifier.size(32.dp)
+                            )
+                        }
+                    }
+                }
             )
         }
 
-    ) {paddingValues ->
+    ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier.padding(paddingValues).fillMaxSize()
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
         ) {
             items(components.size) { index ->
 
@@ -134,6 +205,13 @@ fun ScreenHome(
                             imageVector = component.icon,
                             contentDescription = null,
                             tint = Color(0xFFA47EDD)
+                        )
+                    },
+                    trailingContent = {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = null,
+                            tint = Color.Gray
                         )
                     },
                     modifier = Modifier
@@ -154,7 +232,7 @@ fun ScreenHome(
 @Composable
 fun ScreenHomePreview() {
     AndroidBasicToAdvancedTheme {
-        ScreenHome (
+        ScreenHome(
             onClickComponent = {}
         )
     }

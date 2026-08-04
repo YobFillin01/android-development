@@ -2,11 +2,19 @@ package com.example.androidbasictoadvanced.feature.tooltip
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.PlainTooltip
@@ -25,17 +33,59 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 import kotlinx.coroutines.launch
 
+data class BottomBarItem(
+    val tooltip: String,
+    val icon: ImageVector,
+    val onClick: () -> Unit
+)
+
+val bottomBarItemLists = listOf(
+    BottomBarItem(
+        tooltip = "Menu",
+        icon = Icons.Filled.Menu,
+        onClick = {
+            // Menu action
+        }
+    ),
+    BottomBarItem(
+        tooltip = "Search",
+        icon = Icons.Filled.Search,
+        onClick = {
+            // Search action
+        }
+    ),
+    BottomBarItem(
+        tooltip = "Settings",
+        icon = Icons.Filled.Settings,
+        onClick = {
+            // Settings action
+        }
+    ),
+    BottomBarItem(
+        tooltip = "Profile",
+        icon = Icons.Filled.Person,
+        onClick = {
+            // Profile action
+        }
+    )
+)
+
 @Composable
 fun ScreenTooltip(onBack:() -> Unit) {
+
+    val bottomBarItems = bottomBarItemLists
 
     val tooltipState = rememberTooltipState(
         initialIsVisible = false
@@ -43,7 +93,7 @@ fun ScreenTooltip(onBack:() -> Unit) {
 
     val scope = rememberCoroutineScope()
 
-    val plainTooltipText = "Add to your favorite"
+    val plainTooltipText = "Menu"
 
     var isClicked by remember { mutableStateOf(false) }
 
@@ -74,9 +124,47 @@ fun ScreenTooltip(onBack:() -> Unit) {
                             tint = Color(0xFF34195D)
                         )
                     }
+                },
+
+                actions = {
+                    IconButton(
+                        onClick = {}
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_more_vert),
+                            contentDescription = "More vert",
+                            tint = Color(0xFF34195D)
+                        )
+                    }
                 }
             )
         },
+
+        bottomBar = {
+            BottomAppBar(
+                containerColor = Color(0xFFA47EDD),
+                contentColor = Color(0xFF34195D)
+            ) {
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    bottomBarItems.forEach { item ->
+
+                        TooltipIcon(
+                            tooltipText = item.tooltip,
+                            icon = item.icon,
+                            onClick = item.onClick
+                        )
+
+                    }
+                }
+
+            }
+        }
 
     ) {paddingValues ->
         Column(
@@ -85,43 +173,45 @@ fun ScreenTooltip(onBack:() -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            TooltipBox(
-                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
-                tooltip = {
-                    PlainTooltip { Text(
-                        text = plainTooltipText,
-                        color = Color.White
-                    ) }
-                },
-                state = tooltipState,
-                onDismissRequest = {tooltipState.dismiss()}
-            ) {
-                IconButton(
-                    onClick = {
-
-                        isClicked = !isClicked
-
-                        scope.launch {
-                            tooltipState.show()
-                        }
-
-                    }
-                ) {
-                    Icon(
-                        imageVector =
-                            if (isClicked)
-                                Icons.Filled.Favorite
-                            else
-                                Icons.Outlined.FavoriteBorder,
-                        contentDescription = "Add to favorites",
-                        tint = if (isClicked) Color.Red else Color.Black
-                    )
-                }
-            }
-
         }
     }
 
+}
+
+@Composable
+fun TooltipIcon(
+    tooltipText: String,
+    icon: ImageVector,
+    onClick: () -> Unit
+) {
+    val tooltipState = rememberTooltipState()
+    val scope = rememberCoroutineScope()
+
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
+        tooltip = {
+            PlainTooltip {
+                Text(text = tooltipText)
+            }
+        },
+        state = tooltipState
+    ) {
+        IconButton(
+            onClick = {
+                onClick()
+
+                scope.launch {
+                    tooltipState.show()
+                }
+            }
+        ) {
+            Icon(
+                modifier = Modifier.size(30.dp),
+                imageVector = icon,
+                contentDescription = tooltipText
+            )
+        }
+    }
 }
 
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)

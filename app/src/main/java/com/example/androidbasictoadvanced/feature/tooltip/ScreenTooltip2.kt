@@ -73,10 +73,7 @@ fun ScreenTooltip2(onBack:() -> Unit) {
 
             IconButton(
                 onClick = {
-
                     isClicked = !isClicked
-
-
                 }
             ) {
                 Icon(
