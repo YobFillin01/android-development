@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -95,7 +96,12 @@ fun FullScreenDialog(
                 onClick = {
                     showDialog = true
                 },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
+
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
+                )
             ) {
                 Text(
                     text = "Open full screen dialog"

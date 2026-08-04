@@ -4,19 +4,26 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,16 +32,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenTooltip2(onBack:() -> Unit) {
 
     var isClicked by remember { mutableStateOf(false) }
+    val tooltipState = rememberTooltipState()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
-
+        // ... (TopAppBar stays the same)
         topBar = {
             TopAppBar(
 
@@ -45,7 +57,7 @@ fun ScreenTooltip2(onBack:() -> Unit) {
 
                 title = {
                     Text(
-                        text = "Tooltip",
+                        text = "Tooltip 2",
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -71,20 +83,34 @@ fun ScreenTooltip2(onBack:() -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            IconButton(
-                onClick = {
-                    isClicked = !isClicked
-                }
+            TooltipBox(
+                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
+                tooltip = {
+                    PlainTooltip {
+                        Text(if (isClicked) "Remove from favorites" else "Add to favorites")
+                    }
+                },
+                state = tooltipState
             ) {
-                Icon(
-                    imageVector =
-                        if (isClicked)
-                            Icons.Filled.Favorite
-                        else
-                            Icons.Outlined.FavoriteBorder,
-                    contentDescription = "Add to favorites",
-                    tint = if (isClicked) Color.Red else Color.Black
-                )
+                IconButton(
+                    onClick = {
+                        isClicked = !isClicked
+                        scope.launch {
+                            tooltipState.show()
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector =
+                            if (isClicked)
+                                Icons.Filled.Favorite
+                            else
+                                Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Add to favorites",
+                        tint = if (isClicked) Color.Red else Color.Black,
+                        modifier = Modifier.size(48.dp)
+                    )
+                }
             }
 
         }

@@ -117,7 +117,7 @@ fun ScreenBottomNavigationBar(
                             icon = {
                                 Icon(
                                     painter = painterResource(item.icon),
-                                    contentDescription = "Home",
+                                    contentDescription = item.label,
                                 )
                             },
 

@@ -90,6 +90,11 @@ fun ScreenTimePicker(
 
                 },
 
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
+                ),
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
@@ -99,7 +100,12 @@ fun ScreenDatePickerWithRange(
 
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(24.dp)
+                    .padding(24.dp),
+
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
+                )
             ) {
                 Text(
                     text = "Open Date Range Picker"
@@ -117,13 +123,15 @@ fun ScreenDatePickerWithRange(
         ) {
 
             Text(
-                text = "Start Date: ${formatDate(startDate)}"
+                text = "Start Date: ${formatDate(startDate)}",
+                color = Color(0xFF34195D)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "End Date: ${formatDate(endDate)}"
+                text = "End Date: ${formatDate(endDate)}",
+                color = Color(0xFF34195D)
             )
 
         }

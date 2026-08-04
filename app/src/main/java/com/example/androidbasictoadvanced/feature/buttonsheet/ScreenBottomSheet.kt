@@ -107,7 +107,8 @@ fun ScreenBottomSheet(
                     },
 
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Black
+                        containerColor = Color(0xFFA47EDD),
+                        contentColor = Color(0xFF34195D)
                     ),
 
                     shape = RoundedCornerShape(16.dp)

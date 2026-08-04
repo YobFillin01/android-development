@@ -12,6 +12,6 @@ class CounterViewModel : ViewModel() {
         private set
 
     fun increase() {
-        count++
+        count ++
     }
 }

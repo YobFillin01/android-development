@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -78,6 +79,8 @@ fun ScreenCards(
             modifier = Modifier
                 .padding(paddingValues)
         ) {
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Card is a container used to group related content such as text," +

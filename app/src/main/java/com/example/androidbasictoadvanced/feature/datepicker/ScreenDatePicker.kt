@@ -90,8 +90,8 @@ fun ScreenDatePickerDialog(
                     .fillMaxWidth()
                     .padding(32.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondary
+                    containerColor = Color(0xFFA47EDD),
+                    contentColor = Color(0xFF34195D)
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
