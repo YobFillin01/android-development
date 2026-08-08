@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -45,7 +46,7 @@ fun ScreenBottomNavigationBar(
     onBack: () -> Unit
 ) {
 
-    var selectedIndex by remember  { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(0) }
 
     val tabItems = listOf(
         NavigationItem(
@@ -66,127 +67,126 @@ fun ScreenBottomNavigationBar(
             label = "Setting",
         ),
 
-    )
+        )
 
-        Scaffold(
+    Scaffold(
 
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = "Navigation Bar"
-                        )
-                    },
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Navigation Bar"
+                    )
+                },
 
-                    colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        titleContentColor = Color.Black
-                    ),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    titleContentColor = Color.White
+                ),
 
-                    navigationIcon = {
-                        IconButton(
-                            onClick = onBack
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = "Back",
-                                tint = Color.Black
-                            )
-                        }
-                    },
-                )
-            },
-
-            bottomBar = {
-                NavigationBar(
-
-//                containerColor = MaterialTheme.colorScheme.onPrimaryFixed
-
-                ) {
-
-                    tabItems.forEachIndexed { index, item ->
-                        NavigationBarItem(
-                            selected = index == selectedIndex,
-
-                            onClick = {
-                                selectedIndex = index
-                            },
-
-                            alwaysShowLabel = true,
-
-                            icon = {
-                                Icon(
-                                    painter = painterResource(item.icon),
-                                    contentDescription = item.label,
-                                )
-                            },
-
-                            label = {
-                                Text(
-                                    text = item.label,
-                                )
-                            },
-
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = Color.White,
-                                selectedTextColor = Color.Black,
-                                unselectedIconColor = Color.Black,
-                                unselectedTextColor = Color.Black,
-                                indicatorColor = Color.Black.copy(alpha = 0.5f)
-                            )
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBack
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = "Back",
+                            tint = Color.White
                         )
                     }
+                },
+            )
+        },
 
-                }
-            }
+        bottomBar = {
+            NavigationBar(
 
-        ) {paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
+                containerColor = MaterialTheme.colorScheme.onPrimaryFixed
 
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
             ) {
-                AnimatedContent(
-                    targetState = selectedIndex,
-                    transitionSpec = {
-                        if (targetState > initialState) {
-                            slideInHorizontally(
-                                animationSpec = tween(300),
-                                initialOffsetX = { it }
-                            ) + fadeIn() togetherWith
-                                    slideOutHorizontally(
-                                        animationSpec = tween(300),
-                                        targetOffsetX = { -it }
-                                    ) + fadeOut()
-                        } else {
-                            slideInHorizontally(
-                                animationSpec = tween(300),
-                                initialOffsetX = { -it }
-                            ) + fadeIn() togetherWith
-                                    slideOutHorizontally(
-                                        animationSpec = tween(300),
-                                        targetOffsetX = { it }
-                                    ) + fadeOut()
-                        }
-                    },
-                    label = "ScreenAnimation"
-                ) { screen ->
-                    when (screen) {
-                        ContentType.HOME.value -> HomeScreen()
-                        ContentType.FAVORITE.value -> FavoriteScreen()
-                        ContentType.MENU.value -> SettingScreen()
+
+                tabItems.forEachIndexed { index, item ->
+                    NavigationBarItem(
+                        selected = index == selectedIndex,
+
+                        onClick = {
+                            selectedIndex = index
+                        },
+
+                        alwaysShowLabel = true,
+
+                        icon = {
+                            Icon(
+                                painter = painterResource(item.icon),
+                                contentDescription = item.label,
+                            )
+                        },
+
+                        label = {
+                            Text(
+                                text = item.label,
+                            )
+                        },
+
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = Color.White,
+                            selectedTextColor = if (selectedIndex == index) Color.White else Color.Black,
+                            unselectedIconColor = Color.Black,
+                            unselectedTextColor = Color.Black,
+                            indicatorColor = Color.Black.copy(alpha = 0.3f)
+                        )
+                    )
+                }
+
+            }
+        }
+
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
+
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            AnimatedContent(
+                targetState = selectedIndex,
+                transitionSpec = {
+                    if (targetState > initialState) {
+                        slideInHorizontally(
+                            animationSpec = tween(300),
+                            initialOffsetX = { it }
+                        ) + fadeIn() togetherWith
+                                slideOutHorizontally(
+                                    animationSpec = tween(300),
+                                    targetOffsetX = { -it }
+                                ) + fadeOut()
+                    } else {
+                        slideInHorizontally(
+                            animationSpec = tween(300),
+                            initialOffsetX = { -it }
+                        ) + fadeIn() togetherWith
+                                slideOutHorizontally(
+                                    animationSpec = tween(300),
+                                    targetOffsetX = { it }
+                                ) + fadeOut()
                     }
+                },
+                label = "ScreenAnimation"
+            ) { screen ->
+                when (screen) {
+                    ContentType.HOME.value -> HomeScreen()
+                    ContentType.FAVORITE.value -> FavoriteScreen()
+                    ContentType.MENU.value -> SettingScreen()
                 }
             }
         }
+    }
 }
 
 
-
-enum class ContentType(val value:Int) {
+enum class ContentType(val value: Int) {
     HOME(0),
     FAVORITE(1),
     MENU(2),

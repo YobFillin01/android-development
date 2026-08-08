@@ -132,7 +132,7 @@ fun ToolbarScreen3(onBack: () -> Unit) {
 
                         modifier = Modifier
                             .size(45.dp)
-                            .offset{ IntOffset(offsetX.roundToPx(), 0)},
+                            .offset { IntOffset(offsetX.roundToPx(), 0) },
 
                         onClick = {
                             selectedIndex = index
@@ -173,7 +173,10 @@ fun ToolbarScreen3(onBack: () -> Unit) {
             items(100) { item ->
                 Text(
                     text = "${item+1}. Hello World",
-                    modifier = Modifier.fillMaxWidth().height(42.dp).padding(horizontal = 8.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(42.dp)
+                        .padding(horizontal = 8.dp)
                 )
                 HorizontalDivider()
             }

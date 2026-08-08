@@ -41,7 +41,7 @@ fun ScreenScaffold(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Hello Fillin!",
+                        text = "Scaffold",
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

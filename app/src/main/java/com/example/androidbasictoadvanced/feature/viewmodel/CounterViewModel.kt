@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 
 
 class CounterViewModel : ViewModel() {
-
     var count by mutableIntStateOf(0)
+        /**
+         * private set means Other classes can read count,
+         * but only CounterViewModel can change count.
+         */
         private set
 
     fun increase() {

@@ -29,11 +29,9 @@ import com.example.androidbasictoadvanced.feature.slider.ScreenSlider
 import com.example.androidbasictoadvanced.feature.snackbar.ScreenSnackBar
 import com.example.androidbasictoadvanced.feature.spacer.ScreenSpacer
 import com.example.androidbasictoadvanced.feature.switchcomponent.ScreenSwitchComponent
-import com.example.androidbasictoadvanced.feature.tab.ScreenTab
 import com.example.androidbasictoadvanced.feature.tab.ScreenTab2
 import com.example.androidbasictoadvanced.feature.textfield.ScreenTextField2
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
-import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
 

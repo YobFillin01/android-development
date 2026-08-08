@@ -154,7 +154,7 @@ fun ScreenNavigationDrawer(
 
         drawerContent = {
             ModalDrawerSheet (
-                drawerContainerColor = Color(0xFF2B2B2B)
+                drawerContainerColor = Color.White
             ) {
 
 
@@ -185,13 +185,13 @@ fun ScreenNavigationDrawer(
                             text = "Yob Fillin",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color.Black
                         )
 
                         Text(
                             text = "fillinyob@gmail.com",
                             fontSize = 14.sp,
-                            color = Color.White.copy(alpha = 0.5f),
+                            color = Color.Black.copy(alpha = 0.5f),
 
                         )
 
@@ -204,7 +204,7 @@ fun ScreenNavigationDrawer(
                                     Text(
                                         text = item.label,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color.White
+                                        color = Color.Black
                                     )
                                 },
 
@@ -212,13 +212,15 @@ fun ScreenNavigationDrawer(
 
                                 onClick = {
 
+                                    scope.launch { drawerState.close() }
+
                                 },
 
                                 icon = {
                                     Icon(
                                         painter = painterResource(item.icon),
                                         contentDescription = null,
-                                        tint = Color.White
+                                        tint = Color.Black
                                     )
                                 },
 

@@ -159,6 +159,7 @@ fun ScreenMenu(
                                     )
                                 },
                                 onClick = {
+
                                     item.onClick.invoke()
                                     expand = false
 
