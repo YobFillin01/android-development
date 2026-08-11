@@ -24,7 +24,6 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,7 +33,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -62,7 +60,7 @@ data class Bottom(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenACELEDA() {
+fun ScreenACELEDA(onBack:() -> Unit) {
 
     val bottomList = listOf(
         Bottom(R.drawable.ic_home1, "Home"),
@@ -91,6 +89,18 @@ fun ScreenACELEDA() {
                     containerColor = Color(0xFF0D3157),
                     titleContentColor = Color.White
                 ),
+
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBack
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
+                },
 
                 actions = {
 
@@ -441,7 +451,8 @@ fun Items() {
                         .fillMaxWidth()
                         .clickable(onClick = {})
                         .padding(horizontal = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
 
                     Icon(
@@ -480,7 +491,8 @@ fun Items() {
                         .fillMaxWidth()
                         .clickable(onClick = {})
                         .padding(horizontal = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
 
                     Icon(
@@ -671,6 +683,6 @@ fun AnotherFunction() {
 @Composable
 fun ScreenACELEDAPreview() {
     AndroidBasicToAdvancedTheme() {
-        ScreenACELEDA()
+        ScreenACELEDA {}
     }
 }

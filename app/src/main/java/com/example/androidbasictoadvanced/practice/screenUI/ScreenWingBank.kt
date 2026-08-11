@@ -23,8 +23,6 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,10 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
-import com.example.androidbasictoadvanced.ui.theme.BlueGrey80
-import com.example.androidbasictoadvanced.ui.theme.Brown80
 import com.example.androidbasictoadvanced.ui.theme.Indigo40
-import com.example.androidbasictoadvanced.ui.theme.Indigo80
 
 
 data class ImageItem(
@@ -68,7 +62,7 @@ val imageList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenWingBank() {
+fun ScreenWingBank(onBack:() -> Unit) {
 
     val image = imageList
 
@@ -91,11 +85,11 @@ fun ScreenWingBank() {
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_menu),
-                            contentDescription = "Menu"
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = "Back"
                         )
                     }
                 },
@@ -644,6 +638,6 @@ fun News() {
 @Preview(showBackground = true)
 fun ScreenWingBankPreview() {
     AndroidBasicToAdvancedTheme() {
-        ScreenWingBank()
+        ScreenWingBank {}
     }
 }

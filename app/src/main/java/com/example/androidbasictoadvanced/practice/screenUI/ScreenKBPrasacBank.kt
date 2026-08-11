@@ -46,7 +46,7 @@ import com.example.androidbasictoadvanced.ui.theme.Brown80
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenKBPRASACBank() {
+fun ScreenKBPRASACBank(onBack:() -> Unit) {
 
     Scaffold(
 
@@ -61,7 +61,7 @@ fun ScreenKBPRASACBank() {
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
 
                         Box(
@@ -71,8 +71,8 @@ fun ScreenKBPRASACBank() {
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_menu),
-                                contentDescription = "Menu",
+                                painter = painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = "Bank",
                                 tint = Color.White
                             )
                         }
@@ -571,6 +571,6 @@ fun CreditCard() {
 @Preview(showBackground = true)
 fun ScreenKBPrasacBankPreview() {
     AndroidBasicToAdvancedTheme() {
-        ScreenKBPRASACBank()
+        ScreenKBPRASACBank {}
     }
 }

@@ -24,6 +24,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -36,8 +37,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
+import com.example.androidbasictoadvanced.util.Loading
+import com.example.androidbasictoadvanced.util.LoadingUtil
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
+
 
 data class ComponentItem(
     val title: String,
@@ -45,7 +53,7 @@ data class ComponentItem(
     val icon: ImageVector
 )
 
-val components = listOf(
+val componentsList = listOf(
     ComponentItem("Badge", Screen.Badge, Icons.Default.Badge),
     ComponentItem("Buttons", Screen.Buttons, Icons.Default.SmartButton),
     ComponentItem("Bottom Sheet", Screen.BottomSheet, Icons.Default.VerticalAlignBottom),
@@ -71,7 +79,10 @@ val components = listOf(
     ComponentItem("TextField", Screen.TextField, Icons.Default.Edit),
     ComponentItem("Time Picker", Screen.TimePicker, Icons.Default.AccessTime),
     ComponentItem("Toolbar", Screen.Toolbar, Icons.Default.Build),
-    ComponentItem("Tooltip", Screen.Tooltip, Icons.Default.Info)
+    ComponentItem("Tooltip", Screen.Tooltip, Icons.Default.Info),
+    ComponentItem("Aceleda Bank", Screen.Aceleda, Icons.Default.PhoneAndroid),
+    ComponentItem("Wing Bank", Screen.Wing, Icons.Default.PhoneAndroid),
+    ComponentItem("KB Prasac Bank", Screen.KBPrasac, Icons.Default.PhoneAndroid),
 )
 
 @Composable
@@ -80,6 +91,21 @@ fun ScreenHome(
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    val homeVM: HomeVM = viewModel()
+
+    val state by homeVM.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        homeVM.fetchComponentList()
+    }
+
+    LaunchedEffect(state) {
+        LoadingUtil.showLoading()
+        delay(1000.milliseconds)
+        println("=====> $state")
+        LoadingUtil.hideLoading()
+    }
 
 
     // Test Compose Life cycle
@@ -195,9 +221,9 @@ fun ScreenHome(
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            items(components.size) { index ->
+            items(componentsList.size) { index ->
 
-                val component = components[index]
+                val component = componentsList[index]
 
                 ListItem(
                     leadingContent = {

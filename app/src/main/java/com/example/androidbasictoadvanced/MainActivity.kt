@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.androidbasictoadvanced.navigation.BaseNavigation
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
+import com.example.androidbasictoadvanced.util.Loading
+import com.example.androidbasictoadvanced.util.LoadingUtil
 
 class MainActivity : ComponentActivity() {
     /**
@@ -20,6 +22,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidBasicToAdvancedTheme {
 
+                if (LoadingUtil.isLoading.value) {
+                    Loading()
+                }
                 BaseNavigation()
 
             }

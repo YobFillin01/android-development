@@ -34,6 +34,9 @@ import com.example.androidbasictoadvanced.feature.textfield.ScreenTextField2
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenACELEDA
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenKBPRASACBank
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenWingBank
 
 sealed interface Screen {
     data object Home : Screen
@@ -63,6 +66,9 @@ sealed interface Screen {
     data object TimePicker : Screen
     data object Toolbar : Screen
     data object Tooltip : Screen
+    data object Aceleda : Screen
+    data object Wing : Screen
+    data object KBPrasac : Screen
 }
 
 @Composable
@@ -303,6 +309,30 @@ fun BaseNavigation() {
 
                 Screen.Tooltip -> NavEntry(key) {
                     ScreenTooltip (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.Aceleda -> NavEntry(key) {
+                    ScreenACELEDA (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.Wing -> NavEntry(key) {
+                    ScreenWingBank (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.KBPrasac -> NavEntry(key) {
+                    ScreenKBPRASACBank (
                         onBack = {
                             backStack.removeLastOrNull()
                         }
