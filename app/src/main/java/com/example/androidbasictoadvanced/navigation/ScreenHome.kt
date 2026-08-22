@@ -1,16 +1,49 @@
 package com.example.androidbasictoadvanced.navigation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.*
+import androidx.compose.material.icons.automirrored.filled.Announcement
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.MenuOpen
 import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Badge
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.ChatBubble
+import androidx.compose.material.icons.filled.CheckBox
+import androidx.compose.material.icons.filled.CleaningServices
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Layers
+import androidx.compose.material.icons.filled.LinearScale
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.PhoneAndroid
+import androidx.compose.material.icons.filled.RadioButtonChecked
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SmartButton
+import androidx.compose.material.icons.filled.Sms
+import androidx.compose.material.icons.filled.Tab
+import androidx.compose.material.icons.filled.ToggleOn
+import androidx.compose.material.icons.filled.VerticalAlignBottom
+import androidx.compose.material.icons.filled.ViewCarousel
+import androidx.compose.material.icons.filled.ViewColumn
+import androidx.compose.material.icons.filled.ViewWeek
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
@@ -41,10 +74,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidbasictoadvanced.R
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
-import com.example.androidbasictoadvanced.util.Loading
+import com.example.androidbasictoadvanced.util.BaseUiState
 import com.example.androidbasictoadvanced.util.LoadingUtil
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
 
 
 data class ComponentItem(
@@ -61,7 +92,11 @@ val componentsList = listOf(
     ComponentItem("Carousel", Screen.Carousel, Icons.Default.ViewCarousel),
     ComponentItem("CheckBox", Screen.CheckBox, Icons.Default.CheckBox),
     ComponentItem("Date Picker", Screen.DatePicker, Icons.Default.DateRange),
-    ComponentItem("Date Picker with range", Screen.DatePickerWithRange, Icons.Default.CalendarMonth),
+    ComponentItem(
+        "Date Picker with range",
+        Screen.DatePickerWithRange,
+        Icons.Default.CalendarMonth
+    ),
     ComponentItem("Dialog", Screen.Dialog, Icons.Default.ChatBubble),
     ComponentItem("Lazy Row", Screen.LazyRow, Icons.Default.ViewWeek),
     ComponentItem("Lazy Column", Screen.LazyColumn, Icons.Default.ViewColumn),
@@ -83,6 +118,8 @@ val componentsList = listOf(
     ComponentItem("Aceleda Bank", Screen.Aceleda, Icons.Default.PhoneAndroid),
     ComponentItem("Wing Bank", Screen.Wing, Icons.Default.PhoneAndroid),
     ComponentItem("KB Prasac Bank", Screen.KBPrasac, Icons.Default.PhoneAndroid),
+    ComponentItem("Service", Screen.Service, Icons.Default.CleaningServices),
+    ComponentItem("Messenger", Screen.Messenger, Icons.Default.Sms),
 )
 
 @Composable
@@ -90,21 +127,48 @@ fun ScreenHome(
     onClickComponent: (Screen) -> Unit
 ) {
 
+
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val homeVM: HomeVM = viewModel()
 
-    val state by homeVM.state.collectAsStateWithLifecycle()
+    val stateUiState by homeVM.stateUiState.collectAsStateWithLifecycle()
+
+
+//    var triggerState by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         homeVM.fetchComponentList()
     }
 
-    LaunchedEffect(state) {
-        LoadingUtil.showLoading()
-        delay(1000.milliseconds)
-        println("=====> $state")
-        LoadingUtil.hideLoading()
+    LaunchedEffect(stateUiState) {
+        when (val state = stateUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
+            }
+
+            is BaseUiState.Success -> {
+                LoadingUtil.hideLoading()
+                println("====> Data: ${state.data}")
+            }
+
+            is BaseUiState.Failure -> {
+                println("====> Code: ${state.code}")
+                println("====> Message: ${state.message}")
+                LoadingUtil.hideLoading()
+            }
+
+            is BaseUiState.Exception -> {
+                println("====> Throwable: ${state.throwable}")
+                LoadingUtil.hideLoading()
+            }
+
+            is BaseUiState.Empty -> {
+                LoadingUtil.hideLoading()
+            }
+
+            else -> {}
+        }
     }
 
 
@@ -216,39 +280,74 @@ fun ScreenHome(
         }
 
     ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize()
-        ) {
-            items(componentsList.size) { index ->
 
-                val component = componentsList[index]
+        when (stateUiState) {
+            is BaseUiState.Success -> {
 
-                ListItem(
-                    leadingContent = {
-                        Icon(
-                            imageVector = component.icon,
-                            contentDescription = null,
-                            tint = Color(0xFFA47EDD)
-                        )
-                    },
-                    trailingContent = {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = null,
-                            tint = Color.Gray
-                        )
-                    },
+                LazyColumn(
                     modifier = Modifier
-                        .clickable {
-                            onClickComponent(component.screen)
-                        }
+                        .padding(paddingValues)
+                        .fillMaxSize()
                 ) {
-                    Text(text = component.title)
-                }
+                    items(componentsList.size) { index ->
 
-                HorizontalDivider()
+                        val component = componentsList[index]
+
+                        ListItem(
+                            leadingContent = {
+                                Icon(
+                                    imageVector = component.icon,
+                                    contentDescription = null,
+                                    tint = Color(0xFFA47EDD)
+                                )
+                            },
+                            trailingContent = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                    contentDescription = null,
+                                    tint = Color.Gray
+                                )
+                            },
+                            modifier = Modifier
+                                .clickable {
+                                    onClickComponent(component.screen)
+                                }
+                        ) {
+                            Text(text = component.title)
+                        }
+
+                        HorizontalDivider()
+                    }
+                }
+            }
+            else -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .padding(vertical = 24.dp)
+                        .fillMaxSize()
+                ) {
+                    items(100) {
+                        Row {
+                            Box(
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .size(32.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(Color.LightGray.copy(alpha = 0.5f))
+                            ) { }
+                            Box(
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .fillMaxWidth()
+                                    .height(32.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(Color.LightGray.copy(alpha = 0.5f))
+                            ) { }
+                        }
+                        HorizontalDivider()
+                    }
+                }
             }
         }
     }

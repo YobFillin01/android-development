@@ -45,7 +45,9 @@ import com.example.androidbasictoadvanced.practice.users
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenSpacerDemo() {
+fun ScreenSpacerDemo(
+    onBack:() -> Unit
+) {
 
     val nameList = names
     val userList = users
@@ -54,6 +56,18 @@ fun ScreenSpacerDemo() {
 
         topBar = {
             TopAppBar(
+
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBack
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
+                },
 
                 title = {
                     Text(
@@ -264,7 +278,7 @@ fun ScreenSpacerDemo() {
                 }
 
             }
-            Spacer(modifier = Modifier.height(16.dp))
+//            Spacer(modifier = Modifier.height(16.dp))
             Info()
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -374,7 +388,7 @@ fun UserList(user: User) {
     ) {
 
         Image(
-            painter = painterResource(R.drawable.saw),
+            painter = painterResource(R.drawable.img_profile),
             contentDescription = null,
             modifier = Modifier
                 .size(70.dp)
@@ -384,7 +398,7 @@ fun UserList(user: User) {
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        Column() {
+        Column {
             Text(
                 text = user.username,
                 color = Color.White,
@@ -446,19 +460,18 @@ fun ScreenSearch() {
 
 @Composable
 fun ScreenChat(nameModel: NameModel) {
-    Spacer(modifier = Modifier.height(8.dp))
 
-    Spacer(modifier = Modifier.height(16.dp))
+//    Spacer(modifier = Modifier.height(16.dp))
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
             Image(
-                painter = painterResource(R.drawable.saw),
+                painter = painterResource(R.drawable.img_profile),
                 contentDescription = "android",
                 modifier = Modifier
-                    .size(96.dp)
+                    .size(80.dp)
                     .clip(RoundedCornerShape(64.dp))
                     .background(color = Color.DarkGray)
             )
@@ -473,7 +486,9 @@ fun ScreenChat(nameModel: NameModel) {
 @Composable
 @Preview(showBackground = true)
 fun ScreenMessengerPreview() {
-    AndroidBasicToAdvancedTheme() {
-        ScreenSpacerDemo()
+    AndroidBasicToAdvancedTheme {
+        ScreenSpacerDemo {
+
+        }
     }
 }

@@ -1,9 +1,7 @@
 package com.example.androidbasictoadvanced.practice.screenUI
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,63 +13,54 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.androidbasictoadvanced.R
-import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.BottomAppBarDefaults
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.NavigationDrawerItemColors
 import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.NavigationItemColors
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.carousel.CarouselDefaults
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidbasictoadvanced.feature.navigationdrawer.DrawerMenuItem
+import com.example.androidbasictoadvanced.R
+import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 import com.example.androidbasictoadvanced.ui.theme.Red40
 import kotlinx.coroutines.launch
 
@@ -96,7 +85,7 @@ val itemList = listOf(
 
 data class Carousel(
     val title: String,
-    @DrawableRes val img: Int,
+    val img: Int,
     val description: String
 )
 
@@ -167,14 +156,14 @@ val menuList = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenOrderFood(
-    onProfileClick: () -> Unit = {}
+    onBack: () -> Unit
 ) {
 
     var selectedCategory by remember {
         mutableStateOf("All")
     }
 
-    val item = itemList
+//    val item = itemList
 
     val promotion = promotionList
 
@@ -386,6 +375,16 @@ fun ScreenOrderFood(
                             }
 
                         ) {
+
+                            IconButton(
+                                onClick = onBack
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_arrow_back),
+                                    contentDescription = "Back"
+                                )
+                            }
+
                             Image(
                                 painter = painterResource(R.drawable.img_my_picture),
                                 contentDescription = null,
@@ -634,14 +633,14 @@ fun PopularFoodText() {
 fun PopularFoodImage() {
 
     HorizontalMultiBrowseCarousel(
-        state = rememberCarouselState() { foodItems.size },
+        state = rememberCarouselState { foodItems.size },
         preferredItemWidth = 186.dp,
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
         itemSpacing = 8.dp,
         flingBehavior = CarouselDefaults.singleAdvanceFlingBehavior(
-            state = rememberCarouselState() { foodItems.size }
+            state = rememberCarouselState { foodItems.size }
         ),
         userScrollEnabled = true,
         minSmallItemWidth = CarouselDefaults.MinSmallItemSize,
@@ -651,9 +650,7 @@ fun PopularFoodImage() {
     ) { index ->
         val item = foodItems[index]
 
-        Box(
-
-        ) {
+        Box{
             Image(
                 modifier = Modifier
                     .height(205.dp)
@@ -680,7 +677,7 @@ fun PopularFoodImage() {
                 Icon(
                     painter = painterResource(R.drawable.ic_favorite),
                     contentDescription = null,
-                    tint = Color(0xFF87210B)
+                    tint = Color.White
                 )
             }
         }
@@ -738,7 +735,7 @@ fun PromotionFoodImage(promotionFood: PromotionFood) {
 @Composable
 @Preview(showBackground = true)
 fun ScreenOrderFoodPreview() {
-    AndroidBasicToAdvancedTheme() {
-        ScreenOrderFood()
+    AndroidBasicToAdvancedTheme {
+        ScreenOrderFood {}
     }
 }

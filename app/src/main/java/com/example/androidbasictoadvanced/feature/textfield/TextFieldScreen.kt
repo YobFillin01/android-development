@@ -65,7 +65,9 @@ fun TextFieldScreen(
 
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = {
+                            
+                        }
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),

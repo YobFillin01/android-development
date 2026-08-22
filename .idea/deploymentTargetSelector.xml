@@ -6,23 +6,23 @@
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Phone - ScreenSnackBarPreview">
+      <SelectionState runConfigName="Phone - ScreenAceledaPreview">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Phone - ScreenProgressIndicatorPreview">
+      <SelectionState runConfigName="Phone - ScreenPaymentPreview">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Phone - ScreenCheckBox2Preview">
+      <SelectionState runConfigName="AutoSliderPreview">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Phone - ScreenACELEDAPreview">
+      <SelectionState runConfigName="ScreenRecommendPreview">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="Phone - ScreenHomePreview">
+      <SelectionState runConfigName="ScreenStateViewModelPreview">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>

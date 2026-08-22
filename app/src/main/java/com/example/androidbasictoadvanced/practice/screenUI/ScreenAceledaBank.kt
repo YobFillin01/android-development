@@ -41,8 +41,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -60,7 +63,7 @@ data class Bottom(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenACELEDA(onBack:() -> Unit) {
+fun ScreenACELEDA(onBack: () -> Unit) {
 
     val bottomList = listOf(
         Bottom(R.drawable.ic_home1, "Home"),
@@ -163,10 +166,10 @@ fun ScreenACELEDA(onBack:() -> Unit) {
                                 modifier = Modifier.width(64.dp),
                                 colors = IconButtonDefaults.iconButtonColors(
                                     containerColor =
-                                        if (selectedIndex == index) Color(0xFFD4AF37).copy(alpha = 0.2f)
+                                        if (selectedIndex == index) Color(0xFFBF9A33).copy(alpha = 0.2f)
                                         else Color(0xFF0D3157),
                                     contentColor =
-                                        if (selectedIndex == index) Color(0xFFD4AF37)
+                                        if (selectedIndex == index) Color(0xFFBF9A33)
                                         else Color.White
 
 
@@ -182,7 +185,7 @@ fun ScreenACELEDA(onBack:() -> Unit) {
                             Text(
                                 text = bottom.title,
                                 fontSize = 12.sp,
-                                color = if (selectedIndex == index) Color(0xFFD4AF37) else Color.White
+                                color = if (selectedIndex == index) Color(0xFFBF9A33) else Color.White
                             )
                         }
 
@@ -213,14 +216,14 @@ fun ScreenACELEDA(onBack:() -> Unit) {
 }
 
 @Composable
-fun MyProfile(onProfileClick: () -> Unit = {}) {
+fun MyProfile() {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .clickable{
-                onProfileClick()
+            .clickable {
+
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -238,9 +241,7 @@ fun MyProfile(onProfileClick: () -> Unit = {}) {
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        Column(
-
-        ) {
+        Column {
             Text(
                 text = "Hello, FILLIN",
                 color = Color.White,
@@ -251,13 +252,13 @@ fun MyProfile(onProfileClick: () -> Unit = {}) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Profile", color = Color.White.copy(alpha = 0.5f))
+                Text(text = "Profile", color = Color.Gray)
                 Spacer(modifier = Modifier.width(12.dp))
                 Icon(
                     painter = painterResource(R.drawable.ic_forward_arrow),
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
-                    tint = Color.White.copy(alpha = 0.5f)
+                    tint = Color.Gray
                 )
             }
         }
@@ -294,11 +295,26 @@ fun AccountCard() {
                     .size(120.dp)
                     .clip(CircleShape)
                     .background(Color(0xFF062141))
-                    .border(
-                        width = 6.dp,
-                        color = Color(0xFFD4A946),
-                        shape = CircleShape
-                    )
+                    .drawBehind {
+
+                        // Blue left border
+                        drawArc(
+                            color = Color(0xFF2A84FA),
+                            startAngle = 90f,
+                            sweepAngle = 180f,
+                            useCenter = false,
+                            style = Stroke(width = 6.dp.toPx())
+                        )
+
+                        // Yellow right border
+                        drawArc(
+                            color = Color(0xFFBF9A33),
+                            startAngle = -90f,
+                            sweepAngle = 180f,
+                            useCenter = false,
+                            style = Stroke(width = 6.dp.toPx())
+                        )
+                    }
             ) {
 
                 Column(
@@ -313,7 +329,7 @@ fun AccountCard() {
                         Icon(
                             painter = painterResource(R.drawable.ic_acc_wallet),
                             contentDescription = null,
-                            tint = Color.White,
+                            tint = Color(0xFFBF9A33),
                             modifier = Modifier.size(50.dp)
                         )
                     }
@@ -328,23 +344,19 @@ fun AccountCard() {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Column(
-
-            ) {
+            Column {
                 Row(
-                    modifier = Modifier.padding(end = 16.dp),
+                    modifier = Modifier.padding(end = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
 
                 ) {
                     Text(
                         text = "Total Balances",
-                        color = Color.White.copy(alpha = 0.5f)
+                        color = Color.Gray
                     )
 
                     IconButton(
-                        onClick = {
-                            isMoneyVisible = !isMoneyVisible
-                        }
+                        onClick = { isMoneyVisible = !isMoneyVisible },
                     ) {
                         Icon(
                             painter = painterResource(
@@ -357,32 +369,42 @@ fun AccountCard() {
                 }
 
                 Row(
-                    modifier = Modifier.padding(start = 70.dp),
+                    modifier = Modifier.padding(start = 55.dp),
                     verticalAlignment = Alignment.CenterVertically
 
                 ) {
                     Text(
-                        text = if (isMoneyVisible) "1,000,000" else "●●●●●●",
-                        color = Color.White
+                        text = "1,000,000",
+                        color = Color.White,
+                        modifier = if (isMoneyVisible) {
+                            Modifier
+                        } else {
+                            Modifier.blur(8.dp)
+                        }
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
                         text = "៛",
-                        color = Color(0xFFD4A946),
+                        color = Color(0xFFBF9A33),
                         fontSize = 24.sp
                     )
                 }
 
                 Row(
-                    modifier = Modifier.padding(start = 70.dp),
+                    modifier = Modifier.padding(start = 55.dp),
                     verticalAlignment = Alignment.CenterVertically
 
                 ) {
                     Text(
-                        text = if (isMoneyVisible) "1,000,000" else "●●●●●●",
-                        color = Color.White
+                        text = "1,000,000",
+                        color = Color.White,
+                        modifier = if (isMoneyVisible) {
+                            Modifier
+                        } else {
+                            Modifier.blur(8.dp)
+                        }
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -459,7 +481,7 @@ fun Items() {
                         painter = painterResource(R.drawable.ic_bills),
                         contentDescription = null,
                         modifier = Modifier.size(40.dp),
-                        tint = Color.White
+                        tint = Color(0xFFBF9A33)
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -499,7 +521,7 @@ fun Items() {
                         painter = painterResource(R.drawable.ic_mobile),
                         contentDescription = null,
                         modifier = Modifier.size(40.dp),
-                        tint = Color.White
+                        tint = Color(0xFFBF9A33)
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -547,7 +569,7 @@ fun Items() {
                             Icon(
                                 painter = painterResource(item.icon),
                                 contentDescription = null,
-                                tint = Color.White,
+                                tint = Color(0xFFBF9A33),
                                 modifier = Modifier.size(40.dp)
                             )
                         }
@@ -595,7 +617,7 @@ fun Items() {
                             Icon(
                                 painter = painterResource(item.icon),
                                 contentDescription = null,
-                                tint = Color.White,
+                                tint = Color(0xFFBF9A33),
                                 modifier = Modifier.size(40.dp)
                             )
                         }
@@ -662,7 +684,7 @@ fun AnotherFunction() {
                         Icon(
                             painter = painterResource(item.icon),
                             contentDescription = null,
-                            tint = Color.White,
+                            tint = Color(0xFFBF9A33),
                             modifier = Modifier.size(32.dp)
                         )
                     }
@@ -682,7 +704,7 @@ fun AnotherFunction() {
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
 fun ScreenACELEDAPreview() {
-    AndroidBasicToAdvancedTheme() {
+    AndroidBasicToAdvancedTheme {
         ScreenACELEDA {}
     }
 }

@@ -46,6 +46,8 @@ fun ScreenBottomNavigationBar(
     onBack: () -> Unit
 ) {
 
+
+
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     val tabItems = listOf(
@@ -202,7 +204,7 @@ data class NavigationItem(
 @Composable
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenBottomNavigationBarPreview() {
-    AndroidBasicToAdvancedTheme() {
+    AndroidBasicToAdvancedTheme {
         ScreenBottomNavigationBar {}
     }
 }

@@ -77,7 +77,9 @@ val fruitList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenGrocery() {
+fun ScreenGrocery(
+    onBack: () -> Unit
+) {
 
     val image = imageList1
 
@@ -89,10 +91,20 @@ fun ScreenGrocery() {
 
         topBar = {
             TopAppBar(
-                title = {
-                    Column(
 
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBack
                     ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = null,
+                        )
+                    }
+                },
+
+                title = {
+                    Column {
                         Text(
                             text = "Hi, Fillin👋",
                             fontWeight = FontWeight.Bold,
@@ -153,7 +165,7 @@ fun ScreenGrocery() {
 
             LazyRow(
                 modifier = Modifier
-                    .padding(start = 16.dp),
+                    .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
 
             ) {
@@ -185,7 +197,7 @@ fun PopularVegetablesImage(freshFruit: FreshFruit) {
     Column(
 
         modifier = Modifier
-            .padding(start = 16.dp)
+            .padding(horizontal = 16.dp)
 
     ) {
         Box(
@@ -444,7 +456,7 @@ fun ImageHeader() {
 @Composable
 @Preview(showBackground = true)
 fun ScreenGroceryPreview() {
-    AndroidBasicToAdvancedTheme() {
-        ScreenGrocery()
+    AndroidBasicToAdvancedTheme {
+        ScreenGrocery {}
     }
 }

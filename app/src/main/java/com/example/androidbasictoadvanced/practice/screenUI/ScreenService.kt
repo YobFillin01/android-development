@@ -98,7 +98,9 @@ val serviceList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenAppService() {
+fun ScreenAppService(
+    onBack: () -> Unit
+) {
 
     val service = serviceList
 
@@ -108,10 +110,10 @@ fun ScreenAppService() {
             TopAppBar(
                 navigationIcon = {
                     IconButton(
-                        onClick = {}
+                        onClick = onBack
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.is_location),
+                            painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Location",
                             tint = Cyan40
 
@@ -119,15 +121,15 @@ fun ScreenAppService() {
                     }
                 },
                 title = {
-                    Column() {
+                    Column {
                         Text(
                             text = "Your location",
                             fontSize = 12.sp
                         )
 
-                        Row() {
+                        Row {
                             Text(
-                                text = "Battambang",
+                                text = "Phnom Penh",
                                 fontWeight = FontWeight.Bold
                             )
                             IconButton(
@@ -175,9 +177,7 @@ fun ScreenAppService() {
             ServiceCategories()
             TitlePopularService()
 
-            LazyRow(
-
-            ) {
+            LazyRow {
                 items(service) { service ->
                     PopularService(service)
                 }
@@ -236,12 +236,8 @@ fun BoxBar() {
         )
 
     ) {
-        Row(
-
-        ) {
-            Column(
-
-            ) {
+        Row {
+            Column {
                 Text(
                     text = """
                 YOUR SOLUTION,
@@ -316,7 +312,7 @@ fun BoxBar() {
 
 @Composable
 fun ServiceCategories() {
-    Column() {
+    Column {
         Row(
             modifier = Modifier
                 .padding(horizontal = 8.dp),
@@ -497,9 +493,7 @@ fun TitlePopularService() {
 
 @Composable
 fun PopularService(serviceModel: ServiceModel) {
-    Column(
-
-    ) {
+    Column {
 
         Row(
 
@@ -518,8 +512,7 @@ fun PopularService(serviceModel: ServiceModel) {
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color.White)
             ) {
-                Column(
-                ) {
+                Column {
                     Image(
                         painter = painterResource(serviceModel.img),
                         contentDescription = null,
@@ -595,7 +588,9 @@ fun PopularService(serviceModel: ServiceModel) {
 @Composable
 @Preview
 fun ScreenAppServicePreview() {
-    AndroidBasicToAdvancedTheme() {
-        ScreenAppService()
+    AndroidBasicToAdvancedTheme {
+        ScreenAppService {
+
+        }
     }
 }

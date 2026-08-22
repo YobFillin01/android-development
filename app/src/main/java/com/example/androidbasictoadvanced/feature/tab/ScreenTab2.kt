@@ -231,7 +231,7 @@ val tabsList = listOf(
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 @Composable
 fun ScreenTab2Preview() {
-    AndroidBasicToAdvancedTheme() {
+    AndroidBasicToAdvancedTheme {
         ScreenTab2 {  }
     }
 }

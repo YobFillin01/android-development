@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.example.androidbasictoadvanced.feature.aceleda.ScreenAceleda
 import com.example.androidbasictoadvanced.feature.badge.ScreenBadge
 import com.example.androidbasictoadvanced.feature.buttons.ScreenButtons
 import com.example.androidbasictoadvanced.feature.buttonsheet.ScreenBottomSheet
@@ -35,7 +36,11 @@ import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenACELEDA
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenAppService
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenGrocery
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenKBPRASACBank
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenOrderFood
+import com.example.androidbasictoadvanced.practice.screenUI.ScreenSpacerDemo
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenWingBank
 
 sealed interface Screen {
@@ -69,6 +74,8 @@ sealed interface Screen {
     data object Aceleda : Screen
     data object Wing : Screen
     data object KBPrasac : Screen
+    data object Service : Screen
+    data object Messenger : Screen
 }
 
 @Composable
@@ -148,7 +155,7 @@ fun BaseNavigation() {
                 }
 
                 Screen.Carousel -> NavEntry(key) {
-                    ScreenCarousel (
+                    ScreenOrderFood (
                         onBack = {
                             backStack.removeLastOrNull()
                         }
@@ -188,7 +195,7 @@ fun BaseNavigation() {
                 }
 
                 Screen.LazyRow -> NavEntry(key) {
-                    ScreenLazyRow (
+                    ScreenGrocery  (
                         onBack = {
                             backStack.removeLastOrNull()
                         }
@@ -316,10 +323,12 @@ fun BaseNavigation() {
                 }
 
                 Screen.Aceleda -> NavEntry(key) {
-                    ScreenACELEDA (
+                    ScreenAceleda  (
                         onBack = {
                             backStack.removeLastOrNull()
-                        }
+                        },
+
+                        onNavigateToQrCode = {}
                     )
                 }
 
@@ -333,6 +342,22 @@ fun BaseNavigation() {
 
                 Screen.KBPrasac -> NavEntry(key) {
                     ScreenKBPRASACBank (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.Service -> NavEntry(key) {
+                    ScreenAppService (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.Messenger -> NavEntry(key) {
+                    ScreenSpacerDemo (
                         onBack = {
                             backStack.removeLastOrNull()
                         }

@@ -1,19 +1,22 @@
 package com.example.androidbasictoadvanced.util
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.CircularWavyProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.example.androidbasictoadvanced.R
+import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 
 
 object LoadingUtil {
@@ -41,26 +44,23 @@ fun Loading() {
             dismissOnBackPress = true,
 
             dismissOnClickOutside = false
-        )
-
+        ),
     ) {
 
-        Box(
+        Icon(
+            painter = painterResource(R.drawable.ic_android),
+            contentDescription = null,
+            modifier = Modifier.size(100.dp),
+            tint = Color.Green
+        )
 
-            modifier = Modifier
-                .size(256.dp),
-            contentAlignment = Alignment.Center
+    }
+}
 
-        ) {
-            CircularWavyProgressIndicator(
-
-                color = Color(0xFF15FF00),
-                trackColor = Color(0xFF15FF00).copy(alpha = 0.5f),
-
-
-            )
-        }
-
-
+@Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
+@Composable
+fun LoadingPreview() {
+    AndroidBasicToAdvancedTheme {
+        Loading()
     }
 }
