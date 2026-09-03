@@ -1,22 +1,30 @@
 package com.example.androidbasictoadvanced
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.androidbasictoadvanced.feature.viewmodel.PostListScreen
+import com.example.androidbasictoadvanced.feature.viewmodel.PostVM
+import com.example.androidbasictoadvanced.feature.viewmodel.TodosListScreen
+import com.example.androidbasictoadvanced.feature.viewmodel.TodosVM
 import com.example.androidbasictoadvanced.navigation.BaseNavigation
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 import com.example.androidbasictoadvanced.util.Loading
 import com.example.androidbasictoadvanced.util.LoadingUtil
 
 class MainActivity : ComponentActivity() {
+
     /**
      * onCreate(): is called when the activity is created for the first time.
      * It is used to initialize the activity, set up the user interface, and
      * prepare resources needed by the activity.
      */
+    @SuppressLint("ViewModelConstructorInComposable")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 //        println("=====> onCreate")
         enableEdgeToEdge()
         setContent {
@@ -26,8 +34,8 @@ class MainActivity : ComponentActivity() {
                     Loading()
                 }
                 BaseNavigation()
-
             }
+
         }
     }
 
@@ -85,6 +93,7 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
 //        println("=====> onDestroy")
     }
+
 }
 
 

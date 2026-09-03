@@ -10,15 +10,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -42,7 +39,7 @@ fun ScreenSegmentButtonWithSingleChoice(
     onBack: () -> Unit
 ) {
 
-    val list = listOf<TransactionType>(
+    val list = listOf(
         TransactionType.MOBILE_TOP_UP,
         TransactionType.ABA_TRANSFER,
         TransactionType.KHQR_PAYMENT,
@@ -134,7 +131,7 @@ fun ScreenSegmentButtonWithSingleChoice(
                     )
                 }
             }
-            transactionFilter?.forEachIndexed { index, model ->
+            transactionFilter?.forEach { model ->
                 Row(
                     modifier = Modifier
                         .height(56.dp)
@@ -155,19 +152,8 @@ enum class TransactionType(val id: String, val type: String) {
 
     ABA_TRANSFER("001", "Transfer"),
     KHQR_PAYMENT("003", "Payment"),
-    CASH_OUT("004", "Cash Out"),
-    CASH_IN("005", "Cash In"),
     MOBILE_TOP_UP("006", "Top Up"),
-    WATER_BILL("007", "Water Bill"),
-    ELECTRICITY_BILL("008", "Electricity Bill"),
     INTERNET_BILL("009", "Internet"),
-    SALARY("010", "Salary"),
-    SHOPPING("011", "Shopping"),
-    FOOD_PAYMENT("012", "Food Payment"),
-    SAVINGS("013", "Savings"),
-    WITHDRAW("014", "Withdraw"),
-    DEPOSIT("015", "Deposit"),
-    OTHER("016", "Other")
 }
 
 data class TransactionModel(
@@ -258,7 +244,7 @@ val transactionList = listOf(
 @Composable
 @Preview(name = "Phone", device = Devices.PIXEL_9_PRO, showSystemUi = true)
 fun ScreenSegmentButtonWithSingleChoicePreview() {
-    AndroidBasicToAdvancedTheme() {
+    AndroidBasicToAdvancedTheme {
         ScreenSegmentButtonWithSingleChoice {}
     }
 }

@@ -221,12 +221,12 @@ fun ScreenHomeAceleda(
                     }
 
                     Row(
-                        modifier = Modifier.padding(start = 24.dp),
+                        modifier = Modifier.padding(start = 55.dp),
                         verticalAlignment = Alignment.CenterVertically
 
                     ) {
                         Text(
-                            text = "1,000,000,000",
+                            text = "1,870,000",
                             color = Color.White,
                             modifier = if (isMoneyVisible) {
                                 Modifier
@@ -245,12 +245,12 @@ fun ScreenHomeAceleda(
                     }
 
                     Row(
-                        modifier = Modifier.padding(start = 24.dp),
+                        modifier = Modifier.padding(start = 55.dp),
                         verticalAlignment = Alignment.CenterVertically
 
                     ) {
                         Text(
-                            text = "1,000,000,000",
+                            text = "2,560,000",
                             color = Color.White,
                             modifier = if (isMoneyVisible) {
                                 Modifier

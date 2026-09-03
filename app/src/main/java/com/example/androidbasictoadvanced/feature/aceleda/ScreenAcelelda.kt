@@ -220,19 +220,19 @@ fun ScreenAceleda(
             topBar = {
                 TopAppBar(
 
-                    navigationIcon = {
-                        IconButton(
-                            onClick = {
-                                onBack()
-                            }
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = null,
-                                tint = Color.White
-                            )
-                        }
-                    },
+//                    navigationIcon = {
+//                        IconButton(
+//                            onClick = {
+//                                onBack()
+//                            }
+//                        ) {
+//                            Icon(
+//                                painter = painterResource(R.drawable.ic_arrow_back),
+//                                contentDescription = null,
+//                                tint = Color.White
+//                            )
+//                        }
+//                    },
 
                     title = {
                         Text(

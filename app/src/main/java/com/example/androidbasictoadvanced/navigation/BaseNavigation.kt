@@ -35,6 +35,8 @@ import com.example.androidbasictoadvanced.feature.textfield.ScreenTextField2
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
+import com.example.androidbasictoadvanced.feature.viewmodel.PostListScreen
+import com.example.androidbasictoadvanced.feature.viewmodel.PostVM
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenACELEDA
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenAppService
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenGrocery
@@ -42,6 +44,8 @@ import com.example.androidbasictoadvanced.practice.screenUI.ScreenKBPRASACBank
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenOrderFood
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenSpacerDemo
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenWingBank
+import com.example.androidbasictoadvanced.testing.ScreenCollectAsState
+import com.example.androidbasictoadvanced.testing.ScreenCollectAsStateWithLifeCycle
 
 sealed interface Screen {
     data object Home : Screen
@@ -76,6 +80,9 @@ sealed interface Screen {
     data object KBPrasac : Screen
     data object Service : Screen
     data object Messenger : Screen
+    data object collectAsState : Screen
+    data object collectAsStateWithLifecycle : Screen
+    data object GetApi : Screen
 }
 
 @Composable
@@ -358,6 +365,27 @@ fun BaseNavigation() {
 
                 Screen.Messenger -> NavEntry(key) {
                     ScreenSpacerDemo (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.collectAsState -> NavEntry(key) {
+                    ScreenCollectAsState (
+
+                    )
+                }
+
+                Screen.collectAsStateWithLifecycle -> NavEntry(key) {
+                    ScreenCollectAsStateWithLifeCycle (
+
+                    )
+                }
+
+                Screen.GetApi -> NavEntry(key) {
+                    PostListScreen (
+                        viewModel = PostVM(),
                         onBack = {
                             backStack.removeLastOrNull()
                         }

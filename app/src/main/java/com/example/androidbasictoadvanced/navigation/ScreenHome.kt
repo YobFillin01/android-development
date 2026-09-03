@@ -44,6 +44,7 @@ import androidx.compose.material.icons.filled.VerticalAlignBottom
 import androidx.compose.material.icons.filled.ViewCarousel
 import androidx.compose.material.icons.filled.ViewColumn
 import androidx.compose.material.icons.filled.ViewWeek
+import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
@@ -120,6 +121,9 @@ val componentsList = listOf(
     ComponentItem("KB Prasac Bank", Screen.KBPrasac, Icons.Default.PhoneAndroid),
     ComponentItem("Service", Screen.Service, Icons.Default.CleaningServices),
     ComponentItem("Messenger", Screen.Messenger, Icons.Default.Sms),
+    ComponentItem("Collect As State", Screen.collectAsState, Icons.Default.Info),
+    ComponentItem("Collect As State With Lifecycle", Screen.collectAsStateWithLifecycle, Icons.Default.Info),
+    ComponentItem("Get API", Screen.GetApi, Icons.Default.Wifi),
 )
 
 @Composable
@@ -137,9 +141,9 @@ fun ScreenHome(
 
 //    var triggerState by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        homeVM.fetchComponentList()
-    }
+//    LaunchedEffect(Unit) {
+//        homeVM.fetchComponentList()
+//    }
 
     LaunchedEffect(stateUiState) {
         when (val state = stateUiState) {
