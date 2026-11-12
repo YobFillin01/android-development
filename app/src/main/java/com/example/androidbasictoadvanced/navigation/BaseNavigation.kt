@@ -1,5 +1,6 @@
 package com.example.androidbasictoadvanced.navigation
 
+import android.net.Uri
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -12,14 +13,20 @@ import com.example.androidbasictoadvanced.feature.aceleda.ScreenAceleda
 import com.example.androidbasictoadvanced.feature.badge.ScreenBadge
 import com.example.androidbasictoadvanced.feature.buttons.ScreenButtons
 import com.example.androidbasictoadvanced.feature.buttonsheet.ScreenBottomSheet
+import com.example.androidbasictoadvanced.feature.camera.ScreenCameraHardware
+import com.example.androidbasictoadvanced.feature.camera.ScreenCameraPreview
+import com.example.androidbasictoadvanced.feature.camera.ScreenImagePreview
 import com.example.androidbasictoadvanced.feature.cards.ScreenCards
-import com.example.androidbasictoadvanced.feature.carousel.ScreenCarousel
 import com.example.androidbasictoadvanced.feature.checkBox.ScreenCheckBox2
 import com.example.androidbasictoadvanced.feature.datepicker.ScreenDatePickerDialog
 import com.example.androidbasictoadvanced.feature.datepicker.ScreenDatePickerWithRange
 import com.example.androidbasictoadvanced.feature.dialog.ScreenDialog
-import com.example.androidbasictoadvanced.feature.lazyRow.ScreenLazyRow
 import com.example.androidbasictoadvanced.feature.lazycolumn.ScreenLazyColumn
+import com.example.androidbasictoadvanced.feature.mediapicker.ScreenPickerMultiPhotos
+import com.example.androidbasictoadvanced.feature.mediapicker.ScreenPickerMultiVideos
+import com.example.androidbasictoadvanced.feature.mediapicker.ScreenPickerPhotoAndVideo
+import com.example.androidbasictoadvanced.feature.mediapicker.ScreenPickerSinglePhoto
+import com.example.androidbasictoadvanced.feature.mediapicker.ScreenPickerSingleVideo
 import com.example.androidbasictoadvanced.feature.menu.ScreenMenu
 import com.example.androidbasictoadvanced.feature.navigationbar.ScreenBottomNavigationBar
 import com.example.androidbasictoadvanced.feature.navigationdrawer.ScreenNavigationDrawer
@@ -35,9 +42,8 @@ import com.example.androidbasictoadvanced.feature.textfield.ScreenTextField2
 import com.example.androidbasictoadvanced.feature.timepicker.ScreenTimePicker
 import com.example.androidbasictoadvanced.feature.toolbar.ScreenToolbar6
 import com.example.androidbasictoadvanced.feature.tooltip.ScreenTooltip
-import com.example.androidbasictoadvanced.feature.viewmodel.PostListScreen
+import com.example.androidbasictoadvanced.feature.viewmodel.PostScreen
 import com.example.androidbasictoadvanced.feature.viewmodel.PostVM
-import com.example.androidbasictoadvanced.practice.screenUI.ScreenACELEDA
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenAppService
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenGrocery
 import com.example.androidbasictoadvanced.practice.screenUI.ScreenKBPRASACBank
@@ -80,9 +86,20 @@ sealed interface Screen {
     data object KBPrasac : Screen
     data object Service : Screen
     data object Messenger : Screen
-    data object collectAsState : Screen
-    data object collectAsStateWithLifecycle : Screen
+    data object CollectAsState : Screen
+    data object CollectAsStateWithLifecycle : Screen
     data object GetApi : Screen
+    data object PickSinglePhoto : Screen
+    data object PickMultiPhoto : Screen
+    data object PickSingleVideo : Screen
+    data object PickMultiVideos : Screen
+    data object PickVideoAndPhoto : Screen
+    data object Camera : Screen
+    data object OpenCamera : Screen
+    data class ImagePreview(
+        val imageUri: Uri?
+    ) : Screen
+
 }
 
 @Composable
@@ -371,26 +388,93 @@ fun BaseNavigation() {
                     )
                 }
 
-                Screen.collectAsState -> NavEntry(key) {
-                    ScreenCollectAsState (
-
-                    )
+                Screen.CollectAsState -> NavEntry(key) {
+                    ScreenCollectAsState()
                 }
 
-                Screen.collectAsStateWithLifecycle -> NavEntry(key) {
-                    ScreenCollectAsStateWithLifeCycle (
-
-                    )
+                Screen.CollectAsStateWithLifecycle -> NavEntry(key) {
+                    ScreenCollectAsStateWithLifeCycle()
                 }
 
                 Screen.GetApi -> NavEntry(key) {
-                    PostListScreen (
+                    PostScreen (
                         viewModel = PostVM(),
                         onBack = {
                             backStack.removeLastOrNull()
                         }
                     )
                 }
+                Screen.PickSinglePhoto -> NavEntry(key) {
+                    ScreenPickerSinglePhoto (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+                Screen.PickMultiPhoto -> NavEntry(key) {
+                    ScreenPickerMultiPhotos (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+                Screen.PickSingleVideo -> NavEntry(key) {
+                    ScreenPickerSingleVideo (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.PickMultiVideos -> NavEntry(key) {
+                    ScreenPickerMultiVideos (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.PickVideoAndPhoto -> NavEntry(key) {
+                    ScreenPickerPhotoAndVideo (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
+                Screen.Camera -> NavEntry(key) {
+                    ScreenCameraHardware (
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        },
+
+                        onOpenCamera = {
+                            backStack.add(Screen.OpenCamera)
+                        }
+                    )
+                }
+
+                Screen.OpenCamera -> NavEntry(key) {
+                    ScreenCameraPreview(
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        },
+
+                        onPreview = { uri ->
+                            backStack.add(Screen.ImagePreview(uri))
+                        }
+                    )
+                }
+
+                is Screen.ImagePreview -> NavEntry(key) {
+                    ScreenImagePreview(
+                        imageUri = key.imageUri,
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
+
             }
         }
     )

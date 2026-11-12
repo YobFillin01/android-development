@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Badge
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CleaningServices
@@ -121,16 +122,21 @@ val componentsList = listOf(
     ComponentItem("KB Prasac Bank", Screen.KBPrasac, Icons.Default.PhoneAndroid),
     ComponentItem("Service", Screen.Service, Icons.Default.CleaningServices),
     ComponentItem("Messenger", Screen.Messenger, Icons.Default.Sms),
-    ComponentItem("Collect As State", Screen.collectAsState, Icons.Default.Info),
-    ComponentItem("Collect As State With Lifecycle", Screen.collectAsStateWithLifecycle, Icons.Default.Info),
+    ComponentItem("Collect As State", Screen.CollectAsState, Icons.Default.Info),
+    ComponentItem("Collect As State With Lifecycle", Screen.CollectAsStateWithLifecycle, Icons.Default.Info),
     ComponentItem("Get API", Screen.GetApi, Icons.Default.Wifi),
+    ComponentItem("Pick Single Photo", Screen.PickSinglePhoto, Icons.Default.PhoneAndroid),
+    ComponentItem("Pick Multi Photos", Screen.PickMultiPhoto, Icons.Default.PhoneAndroid),
+    ComponentItem("Pick Single Video", Screen.PickSingleVideo, Icons.Default.PhoneAndroid),
+    ComponentItem("Pick Multi Videos", Screen.PickMultiVideos, Icons.Default.PhoneAndroid),
+    ComponentItem("Pick Video and Photo", Screen.PickVideoAndPhoto, Icons.Default.PhoneAndroid),
+    ComponentItem("Camera", Screen.Camera, Icons.Default.Camera),
 )
 
 @Composable
 fun ScreenHome(
     onClickComponent: (Screen) -> Unit
 ) {
-
 
     val lifecycleOwner = LocalLifecycleOwner.current
 

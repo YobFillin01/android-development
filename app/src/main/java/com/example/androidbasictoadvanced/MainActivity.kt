@@ -5,10 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.androidbasictoadvanced.feature.viewmodel.PostListScreen
-import com.example.androidbasictoadvanced.feature.viewmodel.PostVM
-import com.example.androidbasictoadvanced.feature.viewmodel.TodosListScreen
-import com.example.androidbasictoadvanced.feature.viewmodel.TodosVM
 import com.example.androidbasictoadvanced.navigation.BaseNavigation
 import com.example.androidbasictoadvanced.ui.theme.AndroidBasicToAdvancedTheme
 import com.example.androidbasictoadvanced.util.Loading
@@ -22,7 +18,9 @@ class MainActivity : ComponentActivity() {
      * prepare resources needed by the activity.
      */
     @SuppressLint("ViewModelConstructorInComposable")
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
 //        println("=====> onCreate")

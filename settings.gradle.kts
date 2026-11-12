@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidBasicToAdvanced"
 include(":app")
+//include(":core")
